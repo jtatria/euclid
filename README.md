@@ -6,7 +6,7 @@ Pre-alpha, extremely idyosincratic, mostly an effort to avoid some of R's awkwar
 
 # Author
 
-J. T. Atria (jtatria@gmail.com)
+J. T. Atria (jtatria@nomoi.org)
 
 # License
 
