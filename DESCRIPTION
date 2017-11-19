@@ -1,0 +1,17 @@
+Package: euclid
+Type: Package
+Title: Useful primitives for euclidean geometry
+Version: 0.1.0
+Author: J. T. Atria
+Maintainer: J. T. Atria <jtatria@nomoi.org>
+Description: Collection of useful primitives for euclidean geometry, developed with a focus on
+    separation of low level computing implementations and high-level algebraic and geometric
+    operations, in order to eventually allow for easy extension to different computing backends.
+License: GPL v3.0 or greater.
+Encoding: UTF-8
+LazyData: true
+Imports:
+    magrittr,
+    Matrix,
+    polyclip
+RoxygenNote: 6.0.1
