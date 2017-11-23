@@ -12,25 +12,6 @@ rad2deg <- function( r ) {
     return( 180 * r / pi )
 }
 
-# This is here to eventually dettach all other functions from the storage order of matrices in R.
-# I for one find it easier to deal with rows as primary order, but since R stores everything in
-# colmajor format this is rather inefficient :(
-#' Vector
-#' @export
-v <- function( m, i=1 ) {
-    m %<>% rbind()
-    return( rbind( m[i,] ) )
-}
-
-# This is here to eventually dettach all other functions from the storage order of matrices in R.
-# I for one find it easier to deal with rows as primary order, but since R stores everything in
-# colmajor format this is rather inefficient :(
-#' Dimension
-#' @export
-d <- function( m, i=1 ) {
-    return( m[,i] )
-}
-
 #' Transform object to list( x, y ) format
 #' @export
 to_l <- function( m ) {
@@ -39,6 +20,7 @@ to_l <- function( m ) {
 
 #' Extract object from list( x, y ) or list( list( x, y ) ) format
 #' @export
+# TODO: cbind dependency
 to_m <- function( l, combine=FALSE ) {
     if( combine && length( l ) == 2 && is_plist( l ) ) {
         return( cbind( l$x, l$y ) )
@@ -67,23 +49,11 @@ is_plist <- function( pl ) {
     return( !is.null( names( pl ) ) && all( names( pl ) %in% c( 'x', 'y' ) ) )
 }
 
-#' Is polygon P stored in counterclockwise or clockwise order?
+#' Create n random elements of dimensionality d with the given distribution P
 #' @export
-is_ccw <- function( P ) {
-    ccw <- 0
-    for( i in 1:nrow( P ) ) {
-        j <- ( i %% nrow( P ) ) + 1
-        p0 <- P[i,]; p1 <- P[j,]
-        ccw %<>% `+`( p1[1] - p0[1] ) * ( p1[2] + p0[2] )
-    }
-    return( ccw < 0 )
-}
-
-#' Create n random points in d dimensions
-#' @export
-random <- function( n=10, d=2, distr=runif ) {
-    m <- matrix( distr( n * d ), ncol=d )
-    return( m %>% center() %>% resize() )
+random <- function( n=10, d=2, P=function( n ) runif( n, -1, 1 ) ) {
+    m <- matrix( P( n * d ), ncol=d )
+    return( m )
 }
 
 #' Make color palette
@@ -109,5 +79,27 @@ color_alpha <- function( col=par('fg'), alpha=.1 ) {
     return( col )
 }
 
+#' Filter list
+#' @export
+lfilter <- function( l, pred ) {
+    if( is.null( l ) || length( l ) == 0 ) return( list() )
+    out <- list()
+    for( i in 1:length( l ) ) {
+        if( pred( l[[i]] ) ) out[[length( out ) + 1]] <- l[[i]]
+    }
+    return( out )
+}
 
-
+#' Split m according to km vector, and list them in the given sort order
+#' @export
+split_sort <- function( m, km, sort=NULL ) {
+    sort <- if( is.null( sort ) ) {
+        vapply( unique( km ), function( k ) p_box_size( m[ k == km, ] ), 0 ) %>% order()
+    } else sort
+    out <- list()
+    for( i in 1:length( sort ) ) {
+        k <- sort[i]
+        out[[k]] <- m[ k == km, ]
+    }
+    return( out )
+}

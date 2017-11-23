@@ -1,15 +1,15 @@
-debug_plot <- function( ks, km, m, membs, occ, cur ) {
-    chart( km, m, occ %>% to_m( combine=TRUE ) )
-    polygon( cur, border='red', lwd=2 )
+debug_plot <- function( m, km=NULL, P=NULL ) {
+    chart( m )
+    km <- if( is.null( km ) ) rep( 1, vct( m ) ) else km
+    ks <- unique( km )
     cols <- color_make()( length( ks ) )
-    text( km, cex=.8, col=cols )
-    for( k in ks ) {
-        m0 <- m[ k == membs, ]
-        polygon( m0[chull(m0),], border=cols[k] )
-        text( C( m0 ), col=cols[k], labels=k, cex=.8  )
-        draw_vec( km[k,], C( m0 ), col=cols[k] )
+    for( i in 1:length( ks ) ) {
+        k <- ks[i]
+        m0 <- m[ k == km, ]
+        polygon( p_hull( m0 ), border=cols[i] )
+        text( C( m0 ), col=cols[i], labels=k, cex=.8  )
     }
-    lapply( to_m( occ, combine=FALSE ), function( p ) {
-        polygon( p, col=color_alpha( 'red', .1 ) )
-    } )
+    if( !is.null( P ) ) {
+        polygon( p_hull( P ), border='red', lwd=2 )
+    }
 }

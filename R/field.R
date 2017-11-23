@@ -23,3 +23,5 @@ iszero <- function( v ) {
 O <- function( d=2 ) {
     return( rep( zero(), d ) )
 }
+
+# TODO: add tests

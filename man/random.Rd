@@ -2,10 +2,10 @@
 % Please edit documentation in R/util.R
 \name{random}
 \alias{random}
-\title{Create n random points in d dimensions}
+\title{Create n random elements of dimensionality d with the given distribution P}
 \usage{
-random(n = 10, d = 2, distr = runif)
+random(n = 10, d = 2, P = function(n) runif(n, -1, 1))
 }
 \description{
-Create n random points in d dimensions
+Create n random elements of dimensionality d with the given distribution P
 }

@@ -1,8 +1,8 @@
 # euclid
 
-Pure vanilla R primitves for euclidean geometry
+Pedantic geometric primitives for vanilla R
 
-Pre-alpha, extremely idyosincratic, mostly an effort to avoid some of R's awkwardness
+Pre-alpha, extremely idyosincratic, the result and documentation of my own algebraic education, subject to change, unstable, etc.
 
 # Author
 
