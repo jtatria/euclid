@@ -120,7 +120,7 @@ pp_clear_poly <- function( m0, X, v=C( m ), value=c( 's','v','p' ), aprox=FALSE 
     X %<>% translate( -C( P ) )
     P %<>% translate( -C( P ) )
     if( aprox ) {
-        browser() # implement
+        stop('Not implemented')
     } else {
         tv0 <- pp_clear_edges( P, X,  v, value='v' )
         P %<>% translate( tv0 )

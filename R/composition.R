@@ -5,7 +5,7 @@ compose <- function( m, shp, km, noverlap=noverlap_radial, ... ) {
     if( length( km ) != vct( m ) ) stop('Wrong dimension for shape mebership vector')
     if( length( unique( km ) ) != vct( shp ) ) stop('Wrong dimension for shape')
     ks <- unique( km )
-    vapply( ks, function( k ) { m[ k == km,  ] %<>% center(); return( 0 ) }, 0 )
+    for( k in ks ) m[ k == km,  ] %<>% center() # no idea why vaply doesn't work.
     m %<>% center() %>% resize()
     dist <- vdist( shp, shp, cross=TRUE ) %>% `[`( . != 0 ) %>% min()
     size <- vapply( ks, function( k ) m[ k == km, ] %>% axis_minor() %>% vnorm(), 0 ) %>% max()
@@ -50,5 +50,20 @@ noverlap_nbody <- function( m, km, K=.05 ) {
             }
         }
     }
+}
+
+#' @export
+border <- function( m, k=3, idx=FALSE ) {
+    orig <- m
+    iter <- k
+    out <- NULL
+    while( iter > 0 ) {
+        lim <- p_hull( m, idx=TRUE )
+        out <- c( out, lim )
+        m[ lim, ] <- matrix( rep( C( m ), length( lim ) ), byrow=TRUE, nrow=length( lim ) )
+        iter <- iter - 1
+    }
+    if( idx ) return( out )
+    return( orig[ out, ] )
 }
 
