@@ -41,6 +41,7 @@ rad2deg <- function( r ) {
 #'
 #' @export
 to_l <- function( m ) {
+    m %<>% V()
     return( list( x=m[,1], y=m[,2] ) )
 }
 
@@ -193,7 +194,7 @@ lfilter <- function( l, pred ) {
 #' Split the elements contained in the matrix representation of a vector space \code{m} according
 #' to the membership vector \code{km} indicating which shape each element in \code{m} should be
 #' associated with and return as a list of matrices representing vector spaces. Optionally sort the
-#' output list according to the given soryt order.
+#' output list according to the given sort order.
 #'
 #' @param m  A matrix representing a vector space.
 #' @param km A membership vector, i.e. an integer vector of the same length as the number of
@@ -203,6 +204,7 @@ lfilter <- function( l, pred ) {
 #'
 #' @export
 split_sort <- function( m, km, sort=NULL ) {
+    m %<>% V()
     sort <- if( is.null( sort ) ) {
         vapply( unique( km ), function( k ) p_boxsize( m[ k == km, ] ), 0 ) %>% order()
     } else sort

@@ -12,6 +12,7 @@
 #' @export
 #' @importFrom grDevices chull
 p_hull <- function( m, idx=FALSE ) {
+    m %<>% V()
     ch <- chull( m ) %>% rev()
     if( idx ) return( ch )
     return( m[ ch, ] )

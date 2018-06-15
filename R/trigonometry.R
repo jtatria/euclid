@@ -62,9 +62,10 @@ cotf <- function( v, u=east( dct( v ) ), cross=FALSE ) {
 cot_ <- function( v, u ) 1 / tan_( v, u )
 
 #' Angle between two vectors
+#' TODO: should the angle between a vector and 0 be 0 or NaN?
 #' @export
 theta <- function( v, u=east( dct( v ) ), cw=FALSE, deg=FALSE, cross=FALSE ) {
-    if( iszero( v ) && iszero( u ) ) return( zero() )
+    if( iszero( v ) || iszero( u ) ) return( zero() )
     return( vv_s_op( v, u, function( v_, u_ ) theta_( v_, u_, cw=cw, deg=deg ), cross=cross ) )
 }
 theta_ <- function( v, u, cw=FALSE, deg=FALSE ) {

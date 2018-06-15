@@ -125,6 +125,7 @@ vhead <- function( m, o=C( m ), scalar=FALSE ) {
 #'
 #' @export
 axis_major <- function( m ) {
+    m %<>% V()
     if( vct( m ) == 1 ) return( O( dct( m ) ) )
     if( vct( m ) == 2 ) return( vdif(  m[ 1 ,],  m[ 2 ,] ) )
     ch <- p_hull( m )
@@ -147,6 +148,7 @@ axis_major <- function( m ) {
 #'
 #' @export
 axis_minor <- function( m ) {
+    m %<>% V()
     if( vct( m ) <= 2 ) return( O( dct( m ) ) )
     a <- vorth( axis_major( m ) )
     l <-  m[ which.max( vinnerp( m, a ) ), ] %>% V()
