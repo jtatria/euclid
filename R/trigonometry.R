@@ -2,6 +2,16 @@
 # SOHCAHTOA
 
 #' Cosine
+#'
+#' Cosine between the elements in v and the element or elements in u.
+#'
+#' Computes element-wise cosine between the elements in v and u. If the cross parameter is
+#' FALSE, the products are computed for each element in v and each corresponding element in u. If
+#' cross is TRUE, products are computed for all v-u pairs, i.e. compute the matrix product between
+#' v and u.
+#'
+#' @param v A matrix representing a vector space.
+#' @param u A matrix representing a vector space with either one element or the same number of elements as \code{v}
 #' @export
 cosf <- function( v, u=east( dct( v ) ), cross=FALSE ) {
     if( iszero( v ) || iszero( u ) ) return( zero() )

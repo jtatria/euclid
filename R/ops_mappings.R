@@ -1,4 +1,16 @@
 #' Apply linear mapping
+#'
+#' Apply the given linear mapping to the given matrix representing a vector space. A linear mapping
+#' is given as a matrix with as many rows as dimensions in the source vector space, and as many
+#' columns as dimensions in the target vector space. In most cases, vector spaces are mapped to
+#' themselves, in which case the linear mapping is described as a square matrix.
+#'
+#' @param v   A matrix describing a vector space.
+#' @param map A matrix describing a linear mapping to apply on v
+#'
+#' @return A matrix describing a vector space equal to the application of the given mapping to the
+#'         given input vector space. I.e. the matrix product map * v.
+#'
 #' @export
 lmap <- function( v, map ) {
     v %<>% V()
@@ -13,6 +25,15 @@ lmap <- function( v, map ) {
 lmap_ <- function( v, map ) return( map %*% t ( v ) )
 
 #' Rotation
+#'
+#' Produce a linear mapping that will rotate a vector space by the given angle.
+#'
+#' This function operates exclusively in two dimensions for now. This should change soon.
+#'
+#' @param theta An angle of rotation
+#'
+#' @return a matrix describing a linear mapping that will rotate a vector space by the given angle.
+#'
 #' @export
 rotation <- function( theta ) {
     ct <- cos( theta )

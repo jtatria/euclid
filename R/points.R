@@ -1,4 +1,7 @@
 #' Interplate points
+#'
+#'
+#'
 #' @export
 interpolate <- function( P, poly=TRUE, iter=1, value=c('all','new') ) {
     value <- match.arg( value )

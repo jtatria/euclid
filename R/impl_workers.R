@@ -184,7 +184,8 @@ vv_v_op <- function( v0, v1, f_, cross=FALSE ) {
 #' produces results of arbitrary structure, needing a dimension parameter to determine the shape of
 #' the resulting value.
 #' 
-#' If TRUE, this function computes a tensor product, the value of which is a tensor of rank 3.
+#' If TRUE, this function computes a tensor product, the value of which is a tensor of rank 3l i.e. 
+#' a three dimensional array.
 #' 
 #' TENSOR PRODUCTS ARE NOT IMPLEMENTED YET.
 #' 
@@ -209,7 +210,7 @@ vv_w_op <- function( v0, v1, f_, d, cross=FALSE ) {
     if( vct( v0 ) == 1 ) return( vwise( v1, function( v ) f_( v0, v ), r=O( d ) ) )
     if( vct( v0 ) != vct( v1 ) && !cross ) stop( 'Non-isomorphics in vector-vector op' )
     if( !cross ) return( vwise( v0, m1=v1, function( v, u ) f_( v, u ), r=O( d ) ) )
-    stop( 'Not implemented' )
+    stop( 'Not implemented' )  # TODO: implement tensor products.
 }
 
 #' Wrapper for vapply for vector-wise operations

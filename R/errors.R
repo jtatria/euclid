@@ -18,6 +18,6 @@ error_list_format <- function( msg, ... ) {
 
 error <- function( msg, err, ... ) {
     message( msg )
-    for( o in list( ... ) ) cat( str( o ) )
+    for( o in list( ... ) ) cat( utils::str( o ) )
     stop( err )
 }

@@ -2,10 +2,13 @@
 # level functions. Much testing needed to determine how this affects performance, but very 
 # convenient for trying out different schemes. The rationale behind this, is that R's storage is 
 # not consistent enough for use in computation and plotting: matrix storage is always column major, 
-# but plotting funcitons operate row-wise. To avoid transposing pervasively, the functions in this 
+# but plotting functions operate row-wise. To avoid transposing pervasively, the functions in this 
 # package have been implemented in row-major storage, which is less than ideal for performance 
 # reasons; hence the abstraction in order to facilitate a more permanent solution later.
 
+# NB: this should all be moved to an S3 class.
+
+# NOT USED, for reference only.
 ORDER <- list(
     V = list(
         count  = nrow,
@@ -26,7 +29,8 @@ ORDER <- list(
 #' Normalize the given matrix in order for it to be treated as a vector space following the storage
 #' conventions used in this package.
 #' 
-#' Specially necessary for single-vector vector spaces to be treated properly.
+#' Specially necessary for single-element vector spaces to be treated properly (i.e. as a matrix 
+#' with one entry and not a vector).
 #' 
 #' @param ... Anything that can be coerced to a matrix.
 #' 
@@ -43,7 +47,7 @@ V <- function( ... ) {
 #' Returns the number of vector space elements contained in the given matrix representation of a 
 #' vector space.
 #' 
-#' @param m A normalized matrix representing a vector space.
+#' @param m A matrix representing a vector space.
 #' 
 #' @return An integer indicating the number of vectors in the given space.
 #' 
@@ -54,13 +58,14 @@ vct <- function( m ) {
 
 #' Extract vectors from vector space
 #' 
-#' Extracts the vectors corresponding to the values of the given index vector from the space 
-#' contained in the given matrix representing a vector space.
+#' Extracts the vectors corresponding to the values of the given index or filter vector \code{i} 
+#' from the space contained in the given matrix representing a vector space \code{m}.
 #' 
-#' @param m A normalized matrix representing a vector space
-#' @param i An logical or index vector indicating the desired elements in m.
+#' @param m A matrix representing a vector space.
+#' @param i A logical or index vector indicating the desired elements in \code{m}.
 #' 
-#' @return A subspace of m, containing the elements from m indicated by the entries in i.
+#' @return A subspace of \code{m}, containing the elements from \code{m} indicated by the entries 
+#'         in \code{i}.
 #' 
 #' @export
 getv <- function( m, i ) {

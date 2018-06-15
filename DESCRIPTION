@@ -7,11 +7,11 @@ Maintainer: J. T. Atria <jtatria@nomoi.org>
 Description: Collection of useful primitives for euclidean geometry, developed with a focus on
     separation of low level computing implementations and high-level algebraic and geometric
     operations, in order to eventually allow for easy extension to different computing backends.
-License: GPL v3.0 or greater.
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Imports:
     magrittr,
-    Matrix,
+    viridis,
     polyclip
 RoxygenNote: 6.0.1

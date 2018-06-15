@@ -6,10 +6,10 @@ debug_plot <- function( m, km=NULL, P=NULL ) {
     for( i in 1:length( ks ) ) {
         k <- ks[i]
         m0 <- m[ k == km, ]
-        polygon( p_hull( m0 ), border=cols[i] )
-        text( C( m0 ), col=cols[i], labels=k, cex=.8  )
+        graphics::polygon( p_hull( m0 ), border=cols[i] )
+        graphics::text( C( m0 ), col=cols[i], labels=k, cex=.8  )
     }
     if( !is.null( P ) ) {
-        polygon( p_hull( P ), border='red', lwd=2 )
+        graphics::polygon( p_hull( P ), border='red', lwd=2 )
     }
 }
